@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Chef Salamoune</title>
+
+<style>
+:root { --gold: #c5a059; --dark: #0a0a0a; --card: #151515; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--dark);
+    color: white;
+    margin: 0;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+    url('https://i.ibb.co/wZzhg9VP/IMG-xxxx.jpg');
+    background-size: cover;
+    border-bottom: 2px solid var(--gold);
+}
+
+.logo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    object-fit: cover;
+}
+
+h1 { color: var(--gold); margin-top: 10px; }
+
+/* TITLES */
+.section-title {
+    background: var(--gold);
+    color: black;
+    padding: 8px 25px;
+    text-align: center;
+    margin: 20px auto;
+    font-weight: bold;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+/* GRID */
+.special-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 15px;
+}
+
+.dish-card {
+    background: var(--card);
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #222;
+}
+
+.dish-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.dish-info h3 { 
+    font-size: 13px; 
+    margin: 8px 0;
+    height: 32px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+/* ORDER ROW (For Grid) */
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background: #222;
+}
+
+/* زر الطلب ذهبي */
+.mini-order-btn {
+    background: var(--gold);
+    color: black;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.price { color: var(--gold); font-weight: bold; font-size: 13px; }
+
+/* SANDWICH STYLE - تعديل الزر لليمين */
+.sandwich-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
+    background: var(--card);
+    border-bottom: 1px solid #222;
+    margin: 0 15px;
+}
+
+.sandwich-item .mini-order-btn {
+    margin-left: 15px;
+}
+
+.sandwich-item span:nth-child(2) {
+    flex: 1;
+    font-size: 14px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #111;
+    padding: 25px;
+    border-radius: 20px;
+    width: 300px;
+    border: 1px solid var(--gold);
+    text-align: center;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    background: #222;
+    color: white;
+    box-sizing: border-box;
+}
+
+.send-btn { 
+    width: 100%; 
+    padding: 12px; 
+    border: none; 
+    background: var(--gold); 
+    font-weight: bold; 
+    border-radius: 10px;
+    cursor: pointer; 
+}
+
+.back-btn { 
+    display: block; 
+    margin-top: 15px; 
+    color: #888; 
+    cursor: pointer; 
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="https://i.ibb.co/wZzhg9VP/IMG-xxxx.jpg" class="logo">
+<h1>Chef Salamoune</h1>
+<p></p>
+</header>
+
+<div class="section-title">✨ أطباق الشيف</div>
+
+<div class="special-grid">
+    <div class="dish-card">
+        <img src="https://i.ibb.co/xqHLzyJZ/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>HUÎTRES</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('HUÎTRES', '10 DH')">طلب</div>
+            <span class="price">10 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/GfkdF0HB/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>HUÎTRES ROYAL</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('HUÎTRES ROYAL', '18 DH')">طلب</div>
+            <span class="price">18 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/Pshk1kgD/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>HUÎTRES SALAMOUN</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('HUÎTRES SALAMOUN', '18 DH')">طلب</div>
+            <span class="price">18 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/bjGHdFyz/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>LES NEMS ROYAL</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('LES NEMS ROYAL', '12 DH')">طلب</div>
+            <span class="price">12 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/ntg6vC2/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>LES NEMS SALAMOUN</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('LES NEMS SALAMOUN', '15 DH')">طلب</div>
+            <span class="price">15 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/SDTzLMS2/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>SURIMI</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('SURIMI', '12 DH')">طلب</div>
+            <span class="price">12 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/Ldj8SNQs/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>COCKTAIL SALAMOUN</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('COCKTAIL SALAMOUN', '25 DH')">طلب</div>
+            <span class="price">25 DH</span>
+        </div>
+    </div>
+    <div class="dish-card">
+        <img src="https://i.ibb.co/nFMtmFK/IMG-xxxx.jpg">
+        <div class="dish-info"><h3>CRABE</h3></div>
+        <div class="order-row">
+            <div class="mini-order-btn" onclick="selectDish('CRABE', '10 DH')">طلب</div>
+            <span class="price">10 DH</span>
+        </div>
+    </div>
+</div>
+
+<div class="section-title">🥪 السندويشات</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SIBIYA', '17 DH')">طلب</div>
+    <span>SIBIYA</span>
+    <span class="price">17 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('BORA BORA', '25 DH')">طلب</div>
+    <span>BORA BORA <br><small style="color:#888">(Calamar, Crudités Au Fromage)</small></span>
+    <span class="price">25 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('HAWAYAN', '25 DH')">طلب</div>
+    <span>HAWAYAN <br><small style="color:#888">(Surimi, Crudités Au Fromage)</small></span>
+    <span class="price">25 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('COUBA CABANA', '25 DH')">طلب</div>
+    <span>COUBA CABANA <br><small style="color:#888">(Moules, Crudités Au Fromage)</small></span>
+    <span class="price">25 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('HONOLOLO', '25 DH')">طلب</div>
+    <span>HONOLOLO <br><small style="color:#888">(Crevette, Crudités Au Fromage)</small></span>
+    <span class="price">25 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MIXTE FRUIT DE MER', '25 DH')">طلب</div>
+    <span>MIXTE FRUIT DE MER</span>
+    <span class="price">25 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('CANCON', '35 DH')">طلب</div>
+    <span>CANCON</span>
+    <span class="price">35 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('ROYAL FISH', '35 DH')">طلب</div>
+    <span>ROYAL FISH</span>
+    <span class="price">35 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('CASAWI', '15-25 DH')">طلب</div>
+    <span>CASAWI</span>
+    <span class="price">15-25 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('POULET', '20-30 DH')">طلب</div>
+    <span>POULET</span>
+    <span class="price">20-30 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MIXTE', '22-32 DH')">طلب</div>
+    <span>MIXTE</span>
+    <span class="price">22-32 DH</span>
+</div>
+
+
+<div class="section-title">🥘 مقيلة (MKILA)</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MKILA Crevettes', '30 DH')">طلب</div>
+    <span>MKILA Crevettes</span>
+    <span class="price">30 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MKILA Moules', '30 DH')">طلب</div>
+    <span>MKILA Moules</span>
+    <span class="price">30 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MKILA Mixte', '35 DH')">طلب</div>
+    <span>MKILA Mixte</span>
+    <span class="price">35 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MKILA Calamar', '35 DH')">طلب</div>
+    <span>MKILA Calamar</span>
+    <span class="price">35 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MKILA Royal', '45 DH')">طلب</div>
+    <span>MKILA Royal</span>
+    <span class="price">45 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('MKILA Chef Salamoune', '60 DH')">طلب</div>
+    <span>MKILA Chef Salamoune</span>
+    <span class="price">60 DH</span>
+</div>
+
+
+<div class="section-title">🥗 سلطات (SALADE)</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SALADE EXOTIQUE', '30 DH')">طلب</div>
+    <span>SALADE EXOTIQUE</span>
+    <span class="price">30 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SALADE SURIMI', '40 DH')">طلب</div>
+    <span>SALADE SURIMI</span>
+    <span class="price">40 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SALADE FRUIT DE MER', '45 DH')">طلب</div>
+    <span>SALADE FRUIT DE MER</span>
+    <span class="price">45 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SALADE Chef Salamoune', '80 DH')">طلب</div>
+    <span>SALADE Chef Salamoune</span>
+    <span class="price">80 DH</span>
+</div>
+
+
+<div class="section-title">🌮 طاكوس (TACOS)</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('TACOS POULET', '30 DH')">طلب</div>
+    <span>POULET</span>
+    <span class="price">30 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('TACOS POULET HACHÉ', '30 DH')">طلب</div>
+    <span>POULET HACHÉ</span>
+    <span class="price">30 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('TACOS MIXTE', '35 DH')">طلب</div>
+    <span>MIXTE</span>
+    <span class="price">35 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('TACOS ROYAL FISH', '50 DH')">طلب</div>
+    <span>ROYAL FISH</span>
+    <span class="price">50 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('TACOS ROYAL CHEF SALAMOUNE', '60 DH')">طلب</div>
+    <span>ROYAL CHEF SALAMOUNE</span>
+    <span class="price">60 DH</span>
+</div>
+
+
+<div class="section-title">🥣 شوربة (SOUP FRUIT DE MER)</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SOUP NORMAL', '35 DH')">طلب</div>
+    <span>SOUP NORMAL</span>
+    <span class="price">35 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SOUP EXTRA', '45 DH')">طلب</div>
+    <span>SOUP EXTRA</span>
+    <span class="price">45 DH</span>
+</div>
+
+<div class="sandwich-item">
+    <div class="mini-order-btn" onclick="selectDish('SOUP CHEF SALAMOUNE', '60 DH')">طلب</div>
+    <span>SOUP CHEF SALAMOUNE</span>
+    <span class="price">60 DH</span>
+</div>
+
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h3 id="dishName" style="color: var(--gold);">طلب</h3>
+        <input type="text" id="name" placeholder="الاسم">
+        <input type="tel" id="phone" placeholder="الهاتف">
+        <textarea id="note" placeholder="ملاحظة"></textarea>
+        <button class="send-btn" onclick="send()">إرسال واتساب</button>
+        <span class="back-btn" onclick="closeModal()">رجوع</span>
+    </div>
+</div>
+
+<script>
+let selectedDish = "";
+let selectedPrice = "";
+
+function selectDish(name, price){
+    selectedDish = name;
+    selectedPrice = price;
+    document.getElementById("dishName").innerText = name;
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){ 
+    document.getElementById("modal").style.display="none"; 
+}
+
+function send(){
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let note = document.getElementById("note").value;
+    
+    if(!name || !phone){ 
+        alert("عمر المعلومات"); 
+        return; 
+    }
+    
+    let msg = `طلب من Chef Salamoune 🍽️\nالاسم: ${name}\nالهاتف: ${phone}\nالطلب: ${selectedDish} (${selectedPrice})\nملاحظة: ${note}`;
+    
+    // التعديل باش يدوز للواتساب نيشان
+    window.location.href = "https://wa.me/212772823521?text=" + encodeURIComponent(msg);
+}
+</script>
+
+</body>
+</html>
